@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="color-scheme" content="dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alma Identity — Cr&eacute;e ton identit&eacute; IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&amp;family=Montserrat:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #080808 !important; background-color: #080808 !important; color-scheme: dark; }
+
+```
+:root {
+  --gold: #D4AF37;
+  --gold2: #FFD700;
+  --bronze: #cd7f32;
+  --silver: #C0C0C0;
+  --bg: #080808;
+  --card: rgba(255,255,255,0.03);
+}
+
+body {
+  background: #080808 !important;
+  color: #ffffff !important;
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.glow-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(212,175,55,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(180,140,40,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- HERO ---- */
+.hero {
+  text-align: center;
+  padding: 60px 24px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.alma-tag {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  margin-bottom: 20px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, #D4AF37, #FFD700, #B8960C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+}
+
+.hero-sub {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 16px;
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  max-width: 340px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 40px;
+}
+
+/* ---- QUIZ ---- */
+#quiz-section {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(212,175,55,0.6);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.quiz-card {
+  background: rgba(15,15,15,0.95);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: 0 0 60px rgba(212,175,55,0.05);
+}
+
+.progress-bar {
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.step-count {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  text-align: right;
+  margin-bottom: 24px;
+}
+
+.q-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  color: rgba(212,175,55,0.1);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.q-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #ffffff !important;
+  margin-bottom: 28px;
+  line-height: 1.4;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.option-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 16px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  color: #ffffff !important;
+  font-family: 'Cormorant Garamond', serif;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.option-btn:hover {
+  border-color: rgba(212,175,55,0.4);
+  background: rgba(212,175,55,0.08);
+}
+
+.option-btn.selected {
+  border-color: var(--gold);
+  background: rgba(212,175,55,0.15);
+}
+
+.option-icon { font-size: 22px; }
+.option-text { font-size: 14px; text-align: center; color: rgba(255,255,255,0.85); }
+
+.text-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 12px;
+  padding: 16px;
+  color: #ffffff !important;
+  font-size: 16px;
+  font-family: 'Cormorant Garamond', serif;
+  outline: none;
+  margin-bottom: 14px;
+}
+
+.text-input::placeholder { color: rgba(255,255,255,0.3); }
+
+.next-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  color: #000;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.next-btn:hover { opacity: 0.9; }
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.3);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 10px 0;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ---- RESULT ---- */
+.result-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.result-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 8px 0 6px;
+}
+
+.result-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+
+.summary-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.summary-item {
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* ---- PACKS ---- */
+#packs-section {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.packs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pack-card {
+  border-radius: 18px;
+  padding: 24px 20px;
+  background: var(--card);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.pack-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: #000;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.pack-name {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  margin-bottom: 6px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.pack-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  color: #ffffff !important;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.pack-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
+
+.pack-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 16px;
+}
+
+.pack-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.pack-feature { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.4; }
+
+.pack-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.buy-btn {
+  display: block;
+  text-align: center;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s;
+}
+
+.buy-btn:hover { opacity: 0.88; }
+
+/* ---- HOW IT WORKS ---- */
+#how-section {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.steps-grid { display: flex; flex-direction: column; gap: 14px; }
+
+.step-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  color: rgba(212,175,55,0.25);
+  min-width: 40px;
+}
+
+.step-text { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+/* ---- EXTRAS ---- */
+#extras-section {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.extras-grid { display: flex; flex-direction: column; gap: 10px; }
+
+.extra-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 16px;
+  background: var(--card);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.extra-label { font-size: 13px; color: rgba(255,255,255,0.65); }
+.extra-price { font-size: 14px; color: var(--gold); font-weight: 600; }
+
+/* ---- BONUS ---- */
+.bonus-box {
+  max-width: 440px;
+  margin: 0 auto 40px;
+  padding: 24px;
+  background: rgba(212,175,55,0.06);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.bonus-icon { font-size: 28px; margin-bottom: 8px; }
+.bonus-title { font-size: 11px; letter-spacing: 3px; color: var(--gold); margin-bottom: 10px; }
+.bonus-text { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+/* ---- FOOTER CTA ---- */
+.footer-cta {
+  text-align: center;
+  padding: 40px 24px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.footer-sub { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+
+.footer-badges { display: flex; justify-content: center; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
+
+.footer-badge {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.04);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.hidden { display: none; }
+
+@media (max-width: 400px) {
+  .hero h1 { font-size: 38px; }
+  .hero h1 span { font-size: 44px; }
+  .options-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- MERCI SECTION ---- */
+#merci-section {
+  display: none;
+  min-height: 100vh;
+  background: #080808;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+#merci-section.active {
+  display: flex !important;
+}
+
+.merci-card {
+  background: rgba(15,15,15,0.98);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 24px;
+  padding: 40px 28px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 80px rgba(212,175,55,0.06);
+}
+
+.merci-card .form-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(212,175,55,0.7);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.merci-card .form-group {
+  margin-bottom: 20px;
+}
+
+.merci-card input,
+.merci-card select,
+.merci-card textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #fff !important;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.merci-card input::placeholder,
+.merci-card textarea::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+.merci-card select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF37' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.merci-card select option {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.merci-card textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.merci-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  border: none;
+  border-radius: 14px;
+  padding: 18px;
+  color: #000;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 8px;
+  -webkit-appearance: none;
+}
+
+.merci-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  text-align: center;
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+#merci-success {
+  display: none;
+  text-align: center;
+}
+```
+
+</style>
+</head>
+<body>
+
+<div class="glow-bg"></div>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="alma-tag">&#10022; ALMA.IDENTITY &#10022;</div>
+  <h1>Je cr&eacute;e ton<br><span>Identit&eacute; IA</span></h1>
+  <p class="hero-sub">TON PERSONNAGE. TON UNIVERS. TON SUCC&Egrave;S.</p>
+  <p class="hero-desc">Une identit&eacute; IA compl&egrave;te et r&eacute;aliste, pr&ecirc;te &agrave; &ecirc;tre utilis&eacute;e sur les r&eacute;seaux sociaux.</p>
+  <div class="divider"></div>
+</div>
+
+<!-- QUIZ -->
+
+<div id="quiz-section">
+  <div class="section-label">— TROUVE TON PACK ID&Eacute;AL —</div>
+  <div class="quiz-card">
+
+```
+<!-- Steps 1–5 -->
+<div id="step-1" class="quiz-step">
+  <div class="progress-bar"><div class="progress-fill" style="width:16%"></div></div>
+  <div class="step-count">1 / 6</div>
+  <div class="q-num">01</div>
+  <div class="q-text">Ton personnage est...</div>
+  <div class="options-grid">
+    <button class="option-btn" onclick="choose('gender','F&eacute;minin',2)"><span class="option-icon">&#10022;</span><span class="option-text">F&eacute;minin</span></button>
+    <button class="option-btn" onclick="choose('gender','Masculin',2)"><span class="option-icon">&#9670;</span><span class="option-text">Masculin</span></button>
+  </div>
+</div>
+
+<div id="step-2" class="quiz-step hidden">
+  <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+  <div class="step-count">2 / 6</div>
+  <div class="q-num">02</div>
+  <div class="q-text">Quelle est sa vibe ?</div>
+  <div class="options-grid">
+    <button class="option-btn" onclick="choose('vibe','&Eacute;l&eacute;gante &amp; raffin&eacute;e',3)"><span class="option-icon">&#128081;</span><span class="option-text">&Eacute;l&eacute;gante &amp; raffin&eacute;e</span></button>
+    <button class="option-btn" onclick="choose('vibe','Naturelle &amp; douce',3)"><span class="option-icon">&#127807;</span><span class="option-text">Naturelle &amp; douce</span></button>
+    <button class="option-btn" onclick="choose('vibe','Streetwear &amp; urbaine',3)"><span class="option-icon">&#128293;</span><span class="option-text">Streetwear &amp; urbaine</span></button>
+    <button class="option-btn" onclick="choose('vibe','Myst&eacute;rieuse &amp; sombre',3)"><span class="option-icon">&#127769;</span><span class="option-text">Myst&eacute;rieuse &amp; sombre</span></button>
+  </div>
+  <button class="back-btn" onclick="goTo(1)">&larr; Retour</button>
+</div>
+
+<div id="step-3" class="quiz-step hidden">
+  <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+  <div class="step-count">3 / 6</div>
+  <div class="q-num">03</div>
+  <div class="q-text">Quel type de contenu ?</div>
+  <div class="options-grid">
+    <button class="option-btn" onclick="choose('content','Lifestyle &amp; inspiration',4)"><span class="option-icon">&#10024;</span><span class="option-text">Lifestyle &amp; inspiration</span></button>
+    <button class="option-btn" onclick="choose('content','Humour &amp; divertissement',4)"><span class="option-icon">&#128516;</span><span class="option-text">Humour &amp; divertissement</span></button>
+    <button class="option-btn" onclick="choose('content','Business &amp; motivation',4)"><span class="option-icon">&#128188;</span><span class="option-text">Business &amp; motivation</span></button>
+    <button class="option-btn" onclick="choose('content','Mode &amp; beaut&eacute;',4)"><span class="option-icon">&#128132;</span><span class="option-text">Mode &amp; beaut&eacute;</span></button>
+  </div>
+  <button class="back-btn" onclick="goTo(2)">&larr; Retour</button>
+</div>
+
+<div id="step-4" class="quiz-step hidden">
+  <div class="progress-bar"><div class="progress-fill" style="width:66%"></div></div>
+  <div class="step-count">4 / 6</div>
+  <div class="q-num">04</div>
+  <div class="q-text">Sur quel r&eacute;seau ?</div>
+  <div class="options-grid">
+    <button class="option-btn" onclick="choose('network','TikTok',5)"><span class="option-icon">&#127925;</span><span class="option-text">TikTok</span></button>
+    <button class="option-btn" onclick="choose('network','Instagram',5)"><span class="option-icon">&#128248;</span><span class="option-text">Instagram</span></button>
+    <button class="option-btn" onclick="choose('network','Les deux',5)"><span class="option-icon">&#127760;</span><span class="option-text">Les deux</span></button>
+    <button class="option-btn" onclick="choose('network','Autre',5)"><span class="option-icon">&#128172;</span><span class="option-text">Autre</span></button>
+  </div>
+  <button class="back-btn" onclick="goTo(3)">&larr; Retour</button>
+</div>
+
+<div id="step-5" class="quiz-step hidden">
+  <div class="progress-bar"><div class="progress-fill" style="width:83%"></div></div>
+  <div class="step-count">5 / 6</div>
+  <div class="q-num">05</div>
+  <div class="q-text">Son objectif principal ?</div>
+  <div class="options-grid">
+    <button class="option-btn" onclick="choose('goal','G&eacute;n&eacute;rer des revenus',6)"><span class="option-icon">&#128176;</span><span class="option-text">G&eacute;n&eacute;rer des revenus</span></button>
+    <button class="option-btn" onclick="choose('goal','Construire une audience',6)"><span class="option-icon">&#128200;</span><span class="option-text">Construire une audience</span></button>
+    <button class="option-btn" onclick="choose('goal','Cr&eacute;er du contenu fun',6)"><span class="option-icon">&#127912;</span><span class="option-text">Cr&eacute;er du contenu fun</span></button>
+    <button class="option-btn" onclick="choose('goal','Tester un concept',6)"><span class="option-icon">&#129514;</span><span class="option-text">Tester un concept</span></button>
+  </div>
+  <button class="back-btn" onclick="goTo(4)">&larr; Retour</button>
+</div>
+
+<div id="step-6" class="quiz-step hidden">
+  <div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div>
+  <div class="step-count">6 / 6</div>
+  <div class="q-num">06</div>
+  <div class="q-text">Tu as un pr&eacute;nom en t&ecirc;te ?</div>
+  <input class="text-input" id="name-input" type="text" placeholder="Ex: Sofia, L&eacute;a, Marcus... (facultatif)" />
+  <button class="next-btn" onclick="finishQuiz()">Voir mon pack id&eacute;al &rarr;</button>
+  <button class="back-btn" onclick="goTo(5)">&larr; Retour</button>
+</div>
+
+<!-- RESULT -->
+<div id="step-result" class="quiz-step hidden">
+  <div class="result-header">
+    <div class="alma-tag">ALMA.IDENTITY</div>
+    <div class="result-title">Ton identit&eacute; IA id&eacute;ale &#10022;</div>
+    <div class="result-sub">Bas&eacute; sur tes r&eacute;ponses, voici ce qui te correspond</div>
+  </div>
+  <div class="summary-box" id="summary-box"></div>
+  <div id="recommended-pack"></div>
+  <button class="back-btn" style="width:100%;text-align:center;margin-top:16px;" onclick="restartQuiz()">↺ Recommencer</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- TOUS LES PACKS -->
+
+<div id="packs-section">
+  <div class="section-label" style="margin-top:20px;">— TOUTES LES OFFRES —</div>
+  <div class="packs-grid">
+
+```
+<div class="pack-card" style="border:1px solid rgba(205,127,50,0.3);">
+  <div class="pack-name" style="color:#cd7f32;">PACK BRONZE</div>
+  <div class="pack-price">29&euro;</div>
+  <div class="pack-tagline">L'essentiel pour commencer</div>
+  <div class="pack-divider"></div>
+  <div class="pack-features">
+    <div class="pack-feature"><span style="color:#cd7f32;margin-right:8px;">&#10003;</span>5 images IA haute qualit&eacute;</div>
+    <div class="pack-feature"><span style="color:#cd7f32;margin-right:8px;">&#10003;</span>1 identit&eacute; compl&egrave;te (bio)</div>
+    <div class="pack-feature"><span style="color:#cd7f32;margin-right:8px;">&#10003;</span>1 univers visuel (couleurs, ambiance)</div>
+    <div class="pack-feature"><span style="color:#cd7f32;margin-right:8px;">&#10003;</span>3 id&eacute;es de contenu</div>
+  </div>
+  <div class="pack-label">ID&Eacute;AL POUR D&Eacute;BUTER</div>
+  <a href="https://buy.stripe.com/dRm28r4Es1AZ8ey0Xc2Ry03" target="_blank" class="buy-btn" style="border:1px solid #cd7f32;color:#cd7f32;">Choisir le Pack Bronze &rarr;</a>
+</div>
+
+<div class="pack-card" style="border:1.5px solid #C0C0C0;box-shadow:0 0 40px rgba(192,192,192,0.1);transform:scale(1.01);">
+  <div class="pack-badge" style="background:#C0C0C0;">&#9733; RECOMMAND&Eacute;</div>
+  <div class="pack-name" style="color:#C0C0C0;">PACK ARGENT</div>
+  <div class="pack-price">59&euro;</div>
+  <div class="pack-tagline">Le pack le plus complet</div>
+  <div class="pack-divider"></div>
+  <div class="pack-features">
+    <div class="pack-feature"><span style="color:#C0C0C0;margin-right:8px;">&#10003;</span>10 images IA haute qualit&eacute;</div>
+    <div class="pack-feature"><span style="color:#C0C0C0;margin-right:8px;">&#10003;</span>Identit&eacute; compl&egrave;te (bio, &acirc;ge, histoire)</div>
+    <div class="pack-feature"><span style="color:#C0C0C0;margin-right:8px;">&#10003;</span>Univers visuel complet (couleurs, style)</div>
+    <div class="pack-feature"><span style="color:#C0C0C0;margin-right:8px;">&#10003;</span>10 id&eacute;es de contenu pr&ecirc;tes &agrave; l'emploi</div>
+    <div class="pack-feature"><span style="color:#C0C0C0;margin-right:8px;">&#10003;</span>2 vid&eacute;os courtes pr&ecirc;tes &agrave; poster</div>
+  </div>
+  <div class="pack-label">PARFAIT POUR LANCER TON COMPTE</div>
+  <a href="https://buy.stripe.com/3cI4gzb2QdjHbqKaxM2Ry01" target="_blank" class="buy-btn" style="background:linear-gradient(135deg,#C0C0C0,#e8e8e8);color:#000;">Choisir le Pack Argent &rarr;</a>
+</div>
+
+<div class="pack-card" style="border:1px solid rgba(255,215,0,0.3);">
+  <div class="pack-name" style="color:#FFD700;">PACK OR</div>
+  <div class="pack-price">109&euro;</div>
+  <div class="pack-tagline">L'offre premium</div>
+  <div class="pack-divider"></div>
+  <div class="pack-features">
+    <div class="pack-feature"><span style="color:#FFD700;margin-right:8px;">&#10003;</span>15 images IA haute qualit&eacute;</div>
+    <div class="pack-feature"><span style="color:#FFD700;margin-right:8px;">&#10003;</span>Identit&eacute; compl&egrave;te + sc&eacute;nario de vie d&eacute;taill&eacute;</div>
+    <div class="pack-feature"><span style="color:#FFD700;margin-right:8px;">&#10003;</span>Univers visuel premium (coh&eacute;rent &amp; unique)</div>
+    <div class="pack-feature"><span style="color:#FFD700;margin-right:8px;">&#10003;</span>15 id&eacute;es de contenu strat&eacute;gique</div>
+    <div class="pack-feature"><span style="color:#FFD700;margin-right:8px;">&#10003;</span>5 vid&eacute;os courtes pr&ecirc;tes &agrave; poster</div>
+    <div class="pack-feature"><span style="color:#FFD700;margin-right:8px;">&#10003;</span>Conseils personnalis&eacute;s pour ton compte</div>
+  </div>
+  <div class="pack-label">POUR TE D&Eacute;MARQUER</div>
+  <a href="https://buy.stripe.com/00w5kD5Iwbbz66q0Xc2Ry02" target="_blank" class="buy-btn" style="background:linear-gradient(135deg,#D4AF37,#FFD700);color:#000;">Choisir le Pack Or &rarr;</a>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+
+<div id="how-section">
+  <div class="section-label">— COMMENT &Ccedil;A MARCHE —</div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">01</div><div class="step-text">Tu me dis ce que tu veux (style, vibe, objectif...)</div></div>
+    <div class="step-card"><div class="step-num">02</div><div class="step-text">Je cr&eacute;e ton identit&eacute; IA sur-mesure</div></div>
+    <div class="step-card"><div class="step-num">03</div><div class="step-text">Tu re&ccedil;ois ton pack complet pr&ecirc;t &agrave; utiliser</div></div>
+  </div>
+</div>
+
+<!-- EXTRAS -->
+
+<div id="extras-section">
+  <div class="section-label">— OPTIONS SUPPL&Eacute;MENTAIRES —</div>
+  <div class="extras-grid">
+    <div class="extra-item"><span class="extra-label">+ 5 images IA suppl&eacute;mentaires</span><span class="extra-price">15&euro;</span></div>
+    <div class="extra-item"><span class="extra-label">+ 1 vid&eacute;o suppl&eacute;mentaire</span><span class="extra-price">15&euro;</span></div>
+    <div class="extra-item"><span class="extra-label">+ Script de contenu personnalis&eacute;</span><span class="extra-price">15&euro;</span></div>
+    <div class="extra-item"><span class="extra-label">+ Montage vid&eacute;o avanc&eacute;</span><span class="extra-price">20&euro;</span></div>
+  </div>
+</div>
+
+<!-- BONUS -->
+
+<div class="bonus-box" style="margin:0 20px 40px;">
+  <div class="bonus-icon">&#127873;</div>
+  <div class="bonus-title">BONUS OFFERT</div>
+  <div class="bonus-text">Un guide PDF avec des astuces pour bien utiliser ton personnage IA et r&eacute;ussir sur les r&eacute;seaux sociaux — inclus dans tous les packs.</div>
+</div>
+
+<!-- FOOTER CTA -->
+
+<div class="footer-cta">
+  <div class="footer-title">Pr&ecirc;te &agrave; cr&eacute;er ton identit&eacute; IA ?</div>
+  <div class="footer-sub">Choisis ton pack ci-dessus ou envoie-moi un message priv&eacute; &#128070;</div>
+  <div class="footer-badges">
+    <span class="footer-badge">&#128274; Paiement s&eacute;curis&eacute;</span>
+    <span class="footer-badge">&#9889; Livraison 2-5 jours</span>
+  </div>
+  <div class="alma-tag">&#10022; ALMA.IDENTITY &#10022;</div>
+</div>
+
+<script>
+  const answers = {};
+
+  function goTo(n) {
+    document.querySelectorAll('.quiz-step').forEach(el => el.classList.add('hidden'));
+    document.getElementById('step-' + n).classList.remove('hidden');
+  }
+
+  function choose(key, value, next) {
+    answers[key] = value;
+    goTo(next);
+  }
+
+  function finishQuiz() {
+    const name = document.getElementById('name-input').value;
+    answers['name'] = name || null;
+
+    // Summary tags
+    const box = document.getElementById('summary-box');
+    box.innerHTML = '';
+    const labels = { gender: answers.gender, vibe: answers.vibe, content: answers.content, network: answers.network, goal: answers.goal };
+    Object.values(labels).forEach(v => {
+      if (v) {
+        const tag = document.createElement('span');
+        tag.className = 'summary-item';
+        tag.textContent = v;
+        box.appendChild(tag);
+      }
+    });
+    if (answers.name) {
+      const tag = document.createElement('span');
+      tag.className = 'summary-item';
+      tag.textContent = '&#10022; ' + answers.name;
+      box.appendChild(tag);
+    }
+
+    // Recommended pack
+    let packIndex = 1; // default argent
+    const goal = answers.goal || '';
+    if (goal === 'Cr&eacute;er du contenu fun') packIndex = 0;
+    else if (goal === 'G&eacute;n&eacute;rer des revenus' || goal === 'Tester un concept') packIndex = 2;
+
+    const packs = [
+      { name: 'PACK BRONZE', price: '29&euro;', color: '#cd7f32', link: 'https://buy.stripe.com/dRm28r4Es1AZ8ey0Xc2Ry03', cta: 'Commencer avec Bronze' },
+      { name: 'PACK ARGENT', price: '59&euro;', color: '#C0C0C0', link: 'https://buy.stripe.com/3cI4gzb2QdjHbqKaxM2Ry01', cta: 'Choisir le Pack Argent' },
+      { name: 'PACK OR', price: '109&euro;', color: '#FFD700', link: 'https://buy.stripe.com/00w5kD5Iwbbz66q0Xc2Ry02', cta: 'Obtenir le Pack Or' },
+    ];
+
+    const p = packs[packIndex];
+    document.getElementById('recommended-pack').innerHTML = `
+      <div style="border:1.5px solid ${p.color};border-radius:16px;padding:20px;background:rgba(255,255,255,0.03);box-shadow:0 0 30px rgba(212,175,55,0.08);">
+        <div style="font-size:10px;letter-spacing:2px;color:${p.color};margin-bottom:6px;font-family:'Montserrat',sans-serif;">LE PACK RECOMMAND&Eacute; POUR TOI</div>
+        <div style="font-size:11px;letter-spacing:2px;color:${p.color};margin-bottom:4px;">${p.name}</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;color:#fff;margin-bottom:16px;">${p.price}</div>
+        <a href="${p.link}" target="_blank" style="display:block;text-align:center;padding:14px;border-radius:12px;background:linear-gradient(135deg,${p.color},#fff8dc);color:#000;font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;text-decoration:none;letter-spacing:0.5px;">${p.cta} &rarr;</a>
+      </div>
+    `;
+
+    goTo('result');
+  }
+
+  function restartQuiz() {
+    Object.keys(answers).forEach(k => delete answers[k]);
+    document.getElementById('name-input').value = '';
+    goTo(1);
+  }
+</script>
+
+  <!-- MERCI SECTION -->
+
+  <div id="merci-section">
+    <div class="merci-card">
+      <div id="merci-form-state">
+        <div class="alma-tag">&#10022; ALMA.IDENTITY &#10022;</div>
+        <div style="font-size:48px;text-align:center;margin-bottom:16px;">&#10024;</div>
+        <h1 style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;text-align:center;margin-bottom:8px;">Merci pour<br/>ton <span style="background:linear-gradient(135deg,#D4AF37,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">achat !</span></h1>
+        <p style="font-size:13px;color:rgba(255,255,255,0.45);text-align:center;margin-bottom:32px;line-height:1.6;">Ton paiement est confirm&eacute;. Remplis ce formulaire pour que je puisse cr&eacute;er ton identit&eacute; IA sur-mesure.</p>
+        <div style="width:50px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);margin:0 auto 32px;"></div>
+
+```
+    <div class="form-group"><label class="form-label">TON EMAIL</label><input type="email" id="m-email" placeholder="ton@email.com" /></div>
+    <div class="form-group"><label class="form-label">TON PR&Eacute;NOM</label><input type="text" id="m-prenom" placeholder="Comment tu t'appelles ?" /></div>
+    <div class="form-group"><label class="form-label">LE PACK QUE TU AS CHOISI</label>
+      <select id="m-pack">
+        <option value="">S&eacute;lectionne ton pack</option>
+        <option value="Bronze 29">Pack Bronze &mdash; 29&euro;</option>
+        <option value="Argent 59">Pack Argent &mdash; 59&euro;</option>
+        <option value="Or 109">Pack Or &mdash; 109&euro;</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">GENRE DU PERSONNAGE</label>
+      <select id="m-genre">
+        <option value="">F&eacute;minin ou masculin ?</option>
+        <option value="Feminin">F&eacute;minin</option>
+        <option value="Masculin">Masculin</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">LA VIBE QUE TU VEUX</label>
+      <select id="m-vibe">
+        <option value="">Choisis une vibe</option>
+        <option value="Elegante">El&eacute;gante &amp; raffin&eacute;e</option>
+        <option value="Naturelle">Naturelle &amp; douce</option>
+        <option value="Streetwear">Streetwear &amp; urbaine</option>
+        <option value="Mysterieuse">Myst&eacute;rieuse &amp; sombre</option>
+        <option value="Autre">Autre</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">R&Eacute;SEAU SOCIAL VIS&Eacute;</label>
+      <select id="m-reseau">
+        <option value="">Sur quel r&eacute;seau ?</option>
+        <option value="TikTok">TikTok</option>
+        <option value="Instagram">Instagram</option>
+        <option value="Les deux">Les deux</option>
+        <option value="Autre">Autre</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">UN PR&Eacute;NOM EN T&Ecirc;TE ? (facultatif)</label><input type="text" id="m-nom" placeholder="Ex: Sofia, L&eacute;a, Marcus..." /></div>
+    <div class="form-group"><label class="form-label">&Acirc;GE DU PERSONNAGE</label>
+      <select id="m-age">
+        <option value="">Choisis une tranche d&apos;&acirc;ge</option>
+        <option value="18-22">18-22 ans</option>
+        <option value="23-27">23-27 ans</option>
+        <option value="28-35">28-35 ans</option>
+        <option value="35+">35+ ans</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">DESCRIPTION PHYSIQUE</label>
+      <label class="form-label" style="font-size:10px;opacity:0.6;margin-top:10px;">COULEUR DE PEAU</label>
+      <select id="m-peau" style="margin-bottom:12px;">
+        <option value="">S&eacute;lectionne</option>
+        <option value="Tres claire">Tr&egrave;s claire</option>
+        <option value="Claire">Claire</option>
+        <option value="Mate">Mate</option>
+        <option value="Caramel">Caramel</option>
+        <option value="Foncee">Fonc&eacute;e</option>
+        <option value="Tres foncee">Tr&egrave;s fonc&eacute;e</option>
+        <option value="Je laisse gerer">Je laisse g&eacute;rer</option>
+      </select>
+      <label class="form-label" style="font-size:10px;opacity:0.6;">COULEUR DES CHEVEUX</label>
+      <select id="m-cheveux" style="margin-bottom:12px;">
+        <option value="">S&eacute;lectionne</option>
+        <option value="Noirs">Noirs</option>
+        <option value="Bruns">Bruns</option>
+        <option value="Chatains">Ch&acirc;tains</option>
+        <option value="Blonds">Blonds</option>
+        <option value="Roux">Roux</option>
+        <option value="Gris">Gris / Blanc</option>
+        <option value="Colores">Color&eacute;s</option>
+        <option value="Je laisse gerer">Je laisse g&eacute;rer</option>
+      </select>
+      <label class="form-label" style="font-size:10px;opacity:0.6;">COULEUR DES YEUX</label>
+      <select id="m-yeux" style="margin-bottom:12px;">
+        <option value="">S&eacute;lectionne</option>
+        <option value="Noirs">Noirs</option>
+        <option value="Marrons">Marrons</option>
+        <option value="Noisette">Noisette</option>
+        <option value="Verts">Verts</option>
+        <option value="Bleus">Bleus</option>
+        <option value="Gris">Gris</option>
+        <option value="Je laisse gerer">Je laisse g&eacute;rer</option>
+      </select>
+      <label class="form-label" style="font-size:10px;opacity:0.6;">MORPHOLOGIE</label>
+      <select id="m-morpho">
+        <option value="">S&eacute;lectionne</option>
+        <option value="Fine">Fine &amp; &eacute;lanc&eacute;e</option>
+        <option value="Athletique">Athl&eacute;tique</option>
+        <option value="Ronde">Ronde &amp; douce</option>
+        <option value="Moyenne">Moyenne</option>
+        <option value="Je laisse gerer">Je laisse g&eacute;rer</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">DIS-MOI CE QUE TU IMAGINES</label><textarea id="m-desc" placeholder="Inspirations, ambiance, d&eacute;tails suppl&eacute;mentaires..."></textarea></div>
+    <button class="merci-submit-btn" onclick="submitMerci()">Envoyer mes infos &rarr;</button>
+    <p class="merci-note">Tu recevras ton identit&eacute; IA compl&egrave;te par email sous 2 &agrave; 5 jours ouvr&eacute;s.</p>
+  </div>
+  <div id="merci-success" style="text-align:center;">
+    <div style="font-size:56px;margin-bottom:20px;">&#127881;</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;margin-bottom:12px;">Infos re&ccedil;ues !</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:320px;margin:0 auto 24px;">Je commence &agrave; travailler sur ton identit&eacute; IA. Tu recevras tout par email sous 2 &agrave; 5 jours ouvr&eacute;s.</p>
+    <div class="alma-tag">&#10022; ALMA.IDENTITY &#10022;</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <script>
+    // Show merci section if URL has #merci
+    window.addEventListener('load', function() {
+      if (window.location.hash === '#merci') {
+        document.getElementById('merci-section').style.display = 'flex';
+        document.querySelectorAll('.hero, #quiz-section, #packs-section, #how-section, #extras-section, .bonus-box, .footer-cta').forEach(function(el) {
+          if(el) el.style.display = 'none';
+        });
+        window.scrollTo(0, 0);
+      }
+    });
+
+    function submitMerci() {
+      var email = document.getElementById('m-email').value.trim();
+      var pack = document.getElementById('m-pack').value;
+      if (!email) { alert('Merci de renseigner ton email'); return; }
+      if (!pack) { alert('Merci de selectionner ton pack'); return; }
+      var data = {
+        email: email,
+        prenom: document.getElementById('m-prenom').value,
+        pack: pack,
+        genre: document.getElementById('m-genre').value,
+        vibe: document.getElementById('m-vibe').value,
+        reseau: document.getElementById('m-reseau').value,
+        nom: document.getElementById('m-nom').value,
+        age: document.getElementById('m-age').value,
+        peau: document.getElementById('m-peau').value,
+        cheveux: document.getElementById('m-cheveux').value,
+        yeux: document.getElementById('m-yeux').value,
+        morpho: document.getElementById('m-morpho').value,
+        description: document.getElementById('m-desc').value,
+        date: new Date().toLocaleString()
+      };
+      fetch('https://formspree.io/f/xnjwnaon', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      }).catch(function(){});
+      document.getElementById('merci-form-state').style.display = 'none';
+      document.getElementById('merci-success').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
