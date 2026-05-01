@@ -988,15 +988,20 @@ body {
 
   <script>
     // Show merci section if URL has #merci
-    window.addEventListener('load', function() {
+    function checkHash() {
       if (window.location.hash === '#merci') {
-        document.getElementById('merci-section').style.display = 'flex';
-        document.querySelectorAll('.hero, #quiz-section, #packs-section, #how-section, #extras-section, .bonus-box, .footer-cta').forEach(function(el) {
+        document.getElementById('merci-section').style.cssText = 'display:flex !important;min-height:100vh;background:#080808;align-items:center;justify-content:center;padding:40px 20px;';
+        var sections = ['.hero', '#quiz-section', '#packs-section', '#how-section', '#extras-section', '.bonus-box', '.footer-cta'];
+        sections.forEach(function(sel) {
+          var el = document.querySelector(sel);
           if(el) el.style.display = 'none';
         });
         window.scrollTo(0, 0);
       }
-    });
+    }
+    document.addEventListener('DOMContentLoaded', checkHash);
+    window.addEventListener('load', checkHash);
+    checkHash();
 
     function submitMerci() {
       var email = document.getElementById('m-email').value.trim();
