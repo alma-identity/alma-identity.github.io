@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Identit&eacute; IA &#8212; Alma Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  background-color:#000000 !important;
+  background:#000000 !important;
+  color:#C9A84C;
+  font-family:'Montserrat',sans-serif;
+  overflow-x:hidden;
+}
+.glow{position:fixed;top:0;left:0;right:0;height:350px;background:radial-gradient(ellipse 80% 100% at 50% 0%,rgba(201,168,76,.14) 0%,transparent 65%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,168,76,.12)}
+.nav-back{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;transition:color .3s}
+.nav-back:hover{color:#C9A84C}
+.nav-btn{background:#C9A84C;color:#000;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:11px 22px;text-decoration:none;transition:background .3s}
+.nav-btn:hover{background:#F0CE6A}
+
+/* HERO */
+.hero{padding:130px 0 80px;text-align:center}
+.hero-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9A84C;border:1px solid rgba(201,168,76,.3);padding:7px 22px;margin-bottom:44px}
+.hero-title{font-family:‘Cormorant Garamond’,serif;font-size:clamp(36px,8vw,72px);font-weight:300;line-height:1.05;color:#C9A84C;margin-bottom:14px}
+.hero-title em{font-style:italic;color:#F0CE6A}
+.hero-sub{font-family:‘Cormorant Garamond’,serif;font-size:clamp(17px,3.5vw,23px);font-weight:300;font-style:italic;color:rgba(201,168,76,.4);margin-bottom:52px;line-height:1.5}
+.hero-box{display:inline-block;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.22);padding:22px 36px;font-size:14px;font-weight:400;line-height:1.65;color:rgba(201,168,76,.75);max-width:480px;margin-bottom:56px}
+.hero-box strong{color:#C9A84C;font-weight:700}
+
+/* STATS */
+.stats{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;margin-bottom:80px}
+.stat{text-align:center}
+.stat-n{font-family:‘Cormorant Garamond’,serif;font-size:48px;font-weight:300;color:#C9A84C;line-height:1;display:block}
+.stat-l{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.38);display:block;margin-top:6px}
+
+/* SECTIONS */
+.sec{padding:72px 0;border-top:1px solid rgba(201,168,76,.1)}
+.sec-eye{font-size:9px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:rgba(201,168,76,.4);margin-bottom:14px}
+.sec-title{font-family:‘Cormorant Garamond’,serif;font-size:clamp(28px,5vw,46px);font-weight:300;line-height:1.15;color:#C9A84C;margin-bottom:36px}
+.sec-title em{font-style:italic;color:#F0CE6A}
+
+/* CHAPTERS */
+.chapters{display:flex;flex-direction:column;gap:2px}
+.ch{display:flex;align-items:center;gap:20px;padding:18px 22px;background:#0E0E0E;border:1px solid rgba(201,168,76,.08);transition:background .3s,border-color .3s}
+.ch:hover{background:#141414;border-color:rgba(201,168,76,.25)}
+.ch-n{font-family:‘Cormorant Garamond’,serif;font-size:30px;font-weight:300;color:rgba(201,168,76,.2);min-width:36px;line-height:1}
+.ch-info{flex:1}
+.ch-title{font-size:13px;font-weight:600;color:#C9A84C;margin-bottom:3px}
+.ch-desc{font-size:12px;font-weight:300;color:rgba(201,168,76,.42);line-height:1.5}
+.ch-ico{font-size:18px;opacity:.4}
+
+/* BONUS */
+.bonus{margin-top:3px;background:linear-gradient(135deg,rgba(201,168,76,.1) 0%,rgba(201,168,76,.03) 100%);border:1px solid rgba(201,168,76,.3);padding:28px}
+.bonus-tag{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;display:block;margin-bottom:10px}
+.bonus-title{font-family:‘Cormorant Garamond’,serif;font-size:24px;font-weight:600;color:#C9A84C;margin-bottom:8px}
+.bonus-desc{font-size:13px;font-weight:300;color:rgba(201,168,76,.48);line-height:1.6}
+
+/* FOR WHO */
+.fw-list{display:flex;flex-direction:column;gap:10px}
+.fw{display:flex;align-items:flex-start;gap:16px;padding:16px 20px;background:#0E0E0E;border-left:2px solid #C9A84C}
+.fw-check{color:#C9A84C;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+.fw-text{font-size:13px;font-weight:300;color:rgba(201,168,76,.55);line-height:1.5}
+.fw-text strong{color:#C9A84C;font-weight:600}
+
+/* CTA */
+.cta-sec{padding:80px 0 100px;text-align:center;border-top:1px solid rgba(201,168,76,.1)}
+.price-big{font-family:‘Cormorant Garamond’,serif;font-size:90px;font-weight:300;color:#C9A84C;line-height:1;display:block;margin-bottom:6px}
+.price-note{font-size:10px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.38);margin-bottom:40px;display:block}
+.cta-btn{display:inline-block;background:#C9A84C;color:#000;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:22px 52px;text-decoration:none;transition:background .3s,transform .3s}
+.cta-btn:hover{background:#F0CE6A;transform:translateY(-3px)}
+.cta-sub{display:block;font-size:11px;font-weight:300;color:rgba(201,168,76,.38);letter-spacing:1px;margin-top:18px}
+.lock{display:inline-flex;align-items:center;gap:12px;margin-top:32px;padding:14px 28px;border:1px solid rgba(201,168,76,.18);font-size:11px;font-weight:300;color:rgba(201,168,76,.4)}
+
+/* FOOTER */
+footer{padding:36px;text-align:center;border-top:1px solid rgba(201,168,76,.08);background:#000}
+footer p{font-size:10px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.2)}
+footer a{color:rgba(201,168,76,.38);text-decoration:none}
+</style>
+
+</head>
+<body>
+<div class="glow"></div>
+
+<nav>
+  <a href="index.html" class="nav-back">&larr; Retour</a>
+  <a href="https://buy.stripe.com/aFaeVd7QEbbz9iCfS62Ry04" class="nav-btn">Obtenir le guide &#8212; 37&#8364;</a>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero-tag">Guide Complet &middot; Acc&egrave;s Imm&eacute;diat</span>
+      <h1 class="hero-title">Comment cr&eacute;er son<br>identit&eacute; <em>IA</em> de A &agrave; Z</h1>
+      <p class="hero-sub">Cr&eacute;e un personnage r&eacute;aliste, g&eacute;n&egrave;re du contenu<br>et mon&eacute;tise &#8212; sans jamais montrer ton visage.</p>
+      <div class="hero-box">
+        <strong>12 chapitres.</strong> Les outils exacts. Les prompts pr&ecirc;ts &agrave; copier.<br>
+        Les strat&eacute;gies qui fonctionnent. <strong>Tout ce qu'il te faut pour d&eacute;marrer aujourd'hui.</strong>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="stat-n">12</span><span class="stat-l">Chapitres</span></div>
+        <div class="stat"><span class="stat-n">20</span><span class="stat-l">Prompts inclus</span></div>
+        <div class="stat"><span class="stat-n">0&#8364;</span><span class="stat-l">Pour d&eacute;marrer</span></div>
+        <div class="stat"><span class="stat-n">&#8734;</span><span class="stat-l">Acc&egrave;s &agrave; vie</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <p class="sec-eye">Contenu du guide</p>
+      <h2 class="sec-title">Tout ce que tu vas <em>apprendre</em></h2>
+      <div class="chapters">
+        <div class="ch"><span class="ch-n">01</span><div class="ch-info"><div class="ch-title">Pourquoi une identit&eacute; IA ?</div><div class="ch-desc">Le march&eacute; peu exploit&eacute;. L'avantage de ceux qui commencent maintenant.</div></div><span class="ch-ico">&#128161;</span></div>
+        <div class="ch"><span class="ch-n">02</span><div class="ch-info"><div class="ch-title">Les outils indispensables</div><div class="ch-desc">Midjourney, Leonardo AI, Runway, Kling, HeyGen, ElevenLabs.</div></div><span class="ch-ico">&#128736;</span></div>
+        <div class="ch"><span class="ch-n">03</span><div class="ch-info"><div class="ch-title">Cr&eacute;er le visage de son personnage</div><div class="ch-desc">Technique du seed, Character Reference, prompts pour un visage ultra r&eacute;aliste.</div></div><span class="ch-ico">&#10022;</span></div>
+        <div class="ch"><span class="ch-n">04</span><div class="ch-info"><div class="ch-title">Cr&eacute;er le branding de son identit&eacute;</div><div class="ch-desc">Palette de couleurs, typographie, ton narratif, univers et storytelling.</div></div><span class="ch-ico">&#9672;</span></div>
+        <div class="ch"><span class="ch-n">05</span><div class="ch-info"><div class="ch-title">G&eacute;n&eacute;rer des images coh&eacute;rentes</div><div class="ch-desc">La m&eacute;thode compl&egrave;te pour que ton personnage soit reconnaissable dans chaque image.</div></div><span class="ch-ico">&#128444;</span></div>
+        <div class="ch"><span class="ch-n">06</span><div class="ch-info"><div class="ch-title">Cr&eacute;er des vid&eacute;os r&eacute;alistes</div><div class="ch-desc">Anime ton personnage, fais-le parler avec synchronisation labiale parfaite.</div></div><span class="ch-ico">&#9654;</span></div>
+        <div class="ch"><span class="ch-n">07</span><div class="ch-info"><div class="ch-title">Construire une voix IA</div><div class="ch-desc">Choisir, cloner et utiliser une voix coh&eacute;rente &#8212; en fran&ccedil;ais.</div></div><span class="ch-ico">&#127897;</span></div>
+        <div class="ch"><span class="ch-n">08</span><div class="ch-info"><div class="ch-title">Cr&eacute;er du contenu en masse</div><div class="ch-desc">Le syst&egrave;me batch hebdomadaire pour produire sans s'&eacute;puiser.</div></div><span class="ch-ico">&#9889;</span></div>
+        <div class="ch"><span class="ch-n">09</span><div class="ch-info"><div class="ch-title">Rendre son personnage viral sur TikTok</div><div class="ch-desc">Hooks, CTAs, hashtags et strat&eacute;gie pour exploser l'algorithme.</div></div><span class="ch-ico">&#128293;</span></div>
+        <div class="ch"><span class="ch-n">10</span><div class="ch-info"><div class="ch-title">Mon&eacute;tiser son identit&eacute; IA</div><div class="ch-desc">4 mod&egrave;les : services, TikTok Shop, UGC, contenu exclusif.</div></div><span class="ch-ico">&#128176;</span></div>
+        <div class="ch"><span class="ch-n">11</span><div class="ch-info"><div class="ch-title">Les erreurs &agrave; &eacute;viter absolument</div><div class="ch-desc">Ce qui fait bannir ton compte ou d&eacute;truit ta cr&eacute;dibilit&eacute;.</div></div><span class="ch-ico">&#9888;&#65039;</span></div>
+        <div class="bonus">
+          <span class="bonus-tag">&#127873; Bonus inclus</span>
+          <div class="bonus-title">20 Prompts pr&ecirc;ts &agrave; copier-coller</div>
+          <div class="bonus-desc">Portraits, lifestyle, vid&eacute;os, thumbnails TikTok &#8212; optimis&eacute;s pour Midjourney v6 et Leonardo AI.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <p class="sec-eye">Ce guide est fait pour toi si&#8230;</p>
+      <h2 class="sec-title">Tu te <em>reconnais</em> ici ?</h2>
+      <div class="fw-list">
+        <div class="fw"><span class="fw-check">&#10003;</span><p class="fw-text"><strong>Tu veux cr&eacute;er du contenu</strong> sur TikTok ou Instagram sans montrer ton visage</p></div>
+        <div class="fw"><span class="fw-check">&#10003;</span><p class="fw-text"><strong>Tu veux lancer un business digital</strong> anonyme depuis ton t&eacute;l&eacute;phone</p></div>
+        <div class="fw"><span class="fw-check">&#10003;</span><p class="fw-text"><strong>Tu es curieux&middot;se de l'IA</strong> mais tu ne sais pas par o&ugrave; commencer</p></div>
+        <div class="fw"><span class="fw-check">&#10003;</span><p class="fw-text"><strong>Tu veux vendre des services cr&eacute;atifs</strong> en proposant des identit&eacute;s IA &agrave; tes clients</p></div>
+        <div class="fw"><span class="fw-check">&#10003;</span><p class="fw-text"><strong>Tu veux agir maintenant</strong> sur un march&eacute; encore peu exploit&eacute;</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-sec">
+    <div class="wrap">
+      <p class="sec-eye">Pr&ecirc;t&middot;e &agrave; commencer ?</p>
+      <h2 class="sec-title">Tu as tout ce qu'il te faut.<br><em>Il ne manque plus que l'action.</em></h2>
+      <span class="price-big">37&#8364;</span>
+      <span class="price-note">Paiement unique &middot; Acc&egrave;s imm&eacute;diat et &agrave; vie</span>
+      <a href="https://buy.stripe.com/aFaeVd7QEbbz9iCfS62Ry04" class="cta-btn">Obtenir le guide maintenant</a>
+      <span class="cta-sub">Paiement s&eacute;curis&eacute; par Stripe &middot; PDF t&eacute;l&eacute;chargeable imm&eacute;diatement</span>
+      <br>
+      <div class="lock">&#128274; Paiement 100% s&eacute;curis&eacute; &#8212; Stripe SSL</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&#169; 2025 <a href="index.html">Alma Identity</a> &#8212; Tous droits r&eacute;serv&eacute;s</p>
+</footer>
+</body>
+</html>
